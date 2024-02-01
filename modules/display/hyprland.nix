@@ -9,30 +9,32 @@ in {
   };
 
   config = {
-        programs.hyprland = {
-          enable = true;
-          # package = cfg.package;
-        };
-        #xdg.portal = {
-        #  enable = true;
-        #  wlr.enable = lib.mkForce false;
-        #  extraPortals = [pkgs.xdg-desktop-portal-gtk];
-        #  xdgOpenUsePortal = true;
-        #};
+    programs.hyprland = {
+      enable = true;
+      # package = cfg.package;
+    };
 
-        # locker on sleep
-        systemd.services.locker = {
-          before = ["sleep.target"];
-          wantedBy = ["sleep.target"];
-          script = "${pkgs.systemd}/bin/loginctl lock-sessions";
-        };
+    # xdg already installed
+    #xdg.portal = {
+    #  enable = true;
+    #  wlr.enable = lib.mkForce false;
+    #  extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    #  xdgOpenUsePortal = true;
+    #};
 
-        home-manager.users.derek = {
-          home.stateVersion = "24.05";
-          wayland.windowManager.hyprland = {
-            enable = true;
-            # package = cfg.package;
-          };
-        };
+    # locker on sleep
+    systemd.services.locker = {
+      before = ["sleep.target"];
+      wantedBy = ["sleep.target"];
+      script = "${pkgs.systemd}/bin/loginctl lock-sessions";
+    };
+
+    home-manager.users.derek = {
+      home.stateVersion = "24.05";
+      wayland.windowManager.hyprland = {
+        enable = true;
+        # package = cfg.package;
       };
+    };
+  };
 }

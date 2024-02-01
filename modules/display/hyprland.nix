@@ -1,6 +1,8 @@
-{ pkgs, lib, inputs, config, ...}: let
+{ pkgs, lib, inputs, config, ... }:
+let
   cfg = config.display;
-in {
+in
+{
   options.display = {
     enable = lib.mkEnableOption "Display";
     package = lib.mkOption {
@@ -11,7 +13,7 @@ in {
   config = {
     programs.hyprland = {
       enable = true;
-      # package = cfg.package;
+      package = cfg.package;
     };
 
     # xdg already installed
@@ -24,8 +26,8 @@ in {
 
     # locker on sleep
     systemd.services.locker = {
-      before = ["sleep.target"];
-      wantedBy = ["sleep.target"];
+      before = [ "sleep.target" ];
+      wantedBy = [ "sleep.target" ];
       script = "${pkgs.systemd}/bin/loginctl lock-sessions";
     };
 
@@ -33,7 +35,7 @@ in {
       home.stateVersion = "24.05";
       wayland.windowManager.hyprland = {
         enable = true;
-        # package = cfg.package;
+        package = cfg.package;
       };
     };
   };
